@@ -1,1 +1,0 @@
-# gasolina-em-tempo-real
