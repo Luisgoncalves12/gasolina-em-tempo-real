@@ -39,8 +39,8 @@ def enviar_email(porcentagem, preco_novo, preco_antigo,
 
     msg = email.message.Message()
     msg['Subject'] = f"Gasolina {sinal} {abs(porcentagem)}%"
-    msg['From'] = 'luislindopicafina@gmail.com'
-    msg['To'] = 'luis.dev8530@gmail.com'
+    msg['From'] = '@gmail.com'
+    msg['To'] = '0@gmail.com'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email)
 
