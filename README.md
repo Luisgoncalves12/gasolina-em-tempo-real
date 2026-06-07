@@ -17,7 +17,8 @@ df = pd.read_csv(url, sep=';', encoding='latin1', decimal=',')
 
 O DataFrame vem com 45.551 linhas e 16 colunas:
 
-![DataFrame original](images/image3.png)
+<img width="1469" height="782" alt="Captura de tela 2026-06-07 150241" src="https://github.com/user-attachments/assets/6bb2125d-a20a-4784-a582-1a7d5d6d0d42" />
+
 
 ---
 
@@ -31,7 +32,8 @@ O DataFrame vem com 45.551 linhas e 16 colunas:
 
 Resultado após o filtro:
 
-![DataFrame filtrado](images/image4.png)
+<img width="1516" height="315" alt="Captura de tela 2026-06-07 143408" src="https://github.com/user-attachments/assets/024f52a5-eb16-4de7-a149-0bb10ba86c72" />
+
 
 ---
 
@@ -41,13 +43,13 @@ Agrupa por `Data da Coleta` e calcula preço médio, mínimo, máximo e quantida
 
 Renomeia as colunas com `.rename()` pra evitar conflito com o banco (a coluna `Data da Coleta` tem espaço, o que quebrava na hora de salvar no SQLite).
 
-![Resultado agrupado](images/image1.png)
+<img width="521" height="224" alt="Captura de tela 2026-06-07 143453" src="https://github.com/user-attachments/assets/458a50a1-aff0-4999-99ed-b9e745df5e9f" />
 
 ---
 
 **4. Salva no banco**
 
-Cria um banco SQLite local (`gasolina.db`). Se a tabela `preco` não existir, cria — com `data_coleta` como chave primária, já que só existe um preço por dia.
+Cria um banco SQLite local (`gasolina.db`). Se a tabela `preco` não existir, cria com `data_coleta` como chave primária, já que só existe um preço por dia.
 
 ```python
 cursor.execute("""
@@ -69,11 +71,18 @@ Busca as duas últimas datas no banco e calcula a variação percentual:
 
 ```python
 porcentagem = round(((preco_novo - preco_antigo) / preco_antigo) * 100, 2)
+
+if abs(porcentagem) > 2:
+    enviar_email(porcentagem, preco_novo, preco_antigo,
+                 data_nova, data_antiga, minimo_novo, maximo_novo)
+else:
+    print(f"Sem ajuste significativo. Variação: {porcentagem}%")
 ```
 
-Usa `abs()` pra capturar tanto alta quanto queda — se o valor absoluto passar de 2%, dispara o e-mail.
+Usa `abs()` pra capturar tanto alta quanto queda se o valor absoluto passar de 2%, dispara o e-mail.
 
-![E-mail recebido](images/image2.png)
+<img width="739" height="1600" alt="WhatsApp Image 2026-06-07 at 14 52 49" src="https://github.com/user-attachments/assets/d31b59fb-4fe6-447e-a059-2113fa250847" />
+
 
 ---
 
