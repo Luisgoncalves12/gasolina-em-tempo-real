@@ -1,6 +1,6 @@
 # Monitor de Preço da Gasolina 
 
-Projeto que coleta dados de preço da gasolina direto do site da ANP, processa e manda um e-mail automático quando o preço varia mais de 2%.
+Me propus esse desafio pra aprender na prática, desenvolver um sistema que coleta dados oficiais da ANP, armazena o histórico em banco de dados e envia alerta por e-mail quando o preço médio semanal da gasolina em Brasília variar mais de 2% em relação à semana anterior.
 
 ---
 
